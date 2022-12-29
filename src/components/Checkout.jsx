@@ -3,6 +3,7 @@ import "../styles/Checkout.css";
 
 function Checkout() {
   const [data, setData] = useState(null);
+  const [date, setDate] = useState(null);
   const [setTermsAccepted] = useState(false);
 
   function handleTermsChange(event) {
@@ -16,6 +17,7 @@ function Checkout() {
       );
       const data = await response.json();
       setData(data);
+      setDate(data.deliveryDate);
     }
     fetchData();
   }, []);
@@ -31,7 +33,7 @@ function Checkout() {
                 <p>
                   {data.delivery} - {data.deliveryFee}
                 </p>
-                <p>Tickets available by {data.deliveryDate}</p>
+                <p>Tickets available by {new Date(date).toUTCString()}</p>
                 <p>
                   These mobile tickets will be transfered directly to you from a
                   trusted seller. We'll email your instructions on how to accept
@@ -39,7 +41,9 @@ function Checkout() {
                 </p>
               </div>
               <div className="container payment">
-                <div>
+                <p>Payment</p>
+                <p>Use Credit / Debit Card</p>
+                <div className="selectedCard">
                   <input type="radio" value="Visa" name="cardInfo" />
                   <p>Visa - {data.creditCardNumber}</p>
                   <p>
@@ -104,7 +108,7 @@ function Checkout() {
                 />
                 <label htmlFor="terms">
                   I have read and agree to the current{" "}
-                  <a href={data.termsOfUse}>Terms of Use</a>
+                  <a href={data.termsOfUse} target="_blank" rel="noopener noreferrer">Terms of Use</a>
                 </label>
                 <button type="submit">Place Order</button>
               </form>

@@ -19,6 +19,13 @@
   width: 55%;
 }
 
+.selectedCard
+{
+  background-color: #f0f5fa;
+  border: solid 1px #e9f1fa;
+  padding: 10px;
+}
+
 .total
 {
   width: 45%;
